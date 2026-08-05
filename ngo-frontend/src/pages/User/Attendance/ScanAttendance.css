@@ -1,0 +1,65 @@
+.scan-page {
+
+    max-width: 700px;
+
+    margin: auto;
+
+    padding: 40px;
+
+    text-align: center;
+
+}
+
+.scan-page h1 {
+
+    color: #1f2937;
+
+    margin-bottom: 15px;
+
+}
+
+.scan-page p {
+
+    color: #666;
+
+    margin-bottom: 30px;
+
+}
+
+.scan-btn {
+
+    background: #2563eb;
+
+    color: white;
+
+    border: none;
+
+    padding: 15px 30px;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+.scan-btn:hover {
+
+    background: #1d4ed8;
+
+}
+
+#reader {
+
+    margin-top: 30px;
+
+    width: 350px;
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+}

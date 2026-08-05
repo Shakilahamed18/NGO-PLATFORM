@@ -1,0 +1,65 @@
+.certificates-page {
+
+    padding: 40px;
+
+}
+
+.certificate-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 25px;
+
+    margin-top: 30px;
+
+}
+
+.certificate-card {
+
+    background: #fff;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
+
+}
+
+.certificate-card h2 {
+
+    color: #2563eb;
+
+    margin-bottom: 15px;
+
+}
+
+.certificate-card button {
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+}
+
+.certificate-card button:hover {
+
+    background: #1d4ed8;
+
+}

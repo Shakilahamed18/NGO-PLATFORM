@@ -1,0 +1,236 @@
+.scanner-section {
+
+    background: white;
+
+    padding: 30px;
+
+    margin: 30px 0;
+
+    border-radius: 15px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+
+    text-align: center;
+
+}
+
+.scan-btn {
+
+    margin-top: 20px;
+
+    background: #2563eb;
+
+    color: white;
+
+    border: none;
+
+    padding: 14px 28px;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+.scan-btn:hover {
+
+    background: #1d4ed8;
+
+}
+
+.table-title {
+
+    margin: 30px 0 15px;
+
+    color: #1f2937;
+
+}
+
+.attendance-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: white;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+
+}
+
+.attendance-table th {
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 16px;
+
+}
+
+.attendance-table td {
+
+    padding: 16px;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+.attendance-table tr:hover {
+
+    background: #f8fafc;
+
+}
+
+#reader {
+    width: 350px;
+    margin: 25px auto 0;
+}
+
+
+.attendance-card h3 {
+
+    color: #555;
+
+    margin-bottom: 15px;
+
+}
+
+.attendance-card span {
+
+    font-size: 40px;
+
+    color: #2f5fe3;
+
+    font-weight: bold;
+
+}
+
+.present-badge {
+
+    background: #22c55e;
+
+    color: #fff;
+
+    padding: 6px 15px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+.table-icon {
+
+    color: #2f5fe3;
+
+    margin-right: 8px;
+
+}
+
+.page-header {
+
+    margin-bottom: 20px;
+
+}
+
+.table-title {
+
+    margin-bottom: 20px;
+
+}
+
+.attendance-list {
+
+    background: #fff;
+
+    border-radius: 15px;
+
+    padding: 25px;
+
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
+
+    margin-top: 0;
+
+
+}
+
+.attendance-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+.attendance-table th {
+
+    background: #2f5fe3;
+
+    color: #fff;
+
+    padding: 16px;
+
+    text-align: left;
+
+}
+
+.attendance-table td {
+
+    padding: 20px 16px;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+.table-icon {
+
+    color: #2f5fe3;
+
+    margin-right: 10px;
+
+}
+
+.present-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    background: #22c55e;
+
+    color: #fff;
+
+    padding: 5px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+.attendance-table td:first-child {
+    font-weight: 600;
+}
+
+.attendance-table tbody tr:nth-child(even) {
+    background: #f8faff;
+}
+
+.attendance-table tbody tr:hover {
+    background: #eef4ff;
+}

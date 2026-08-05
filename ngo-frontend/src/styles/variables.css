@@ -1,0 +1,22 @@
+:root{
+
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+
+    --success:#16a34a;
+    --danger:#dc2626;
+    --warning:#f59e0b;
+
+    --background:#f4f7fb;
+
+    --white:#ffffff;
+
+    --text:#1f2937;
+
+    --secondary:#64748b;
+
+    --shadow:0 10px 25px rgba(0,0,0,.08);
+
+    --radius:14px;
+
+}

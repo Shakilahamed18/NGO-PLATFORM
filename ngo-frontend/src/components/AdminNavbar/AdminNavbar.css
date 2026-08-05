@@ -1,0 +1,75 @@
+.admin-navbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 40px;
+
+    background:#1e3a8a;
+
+    color:white;
+
+}
+
+.admin-navbar h2{
+
+    color:white;
+
+}
+
+.admin-navbar div{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.admin-navbar a{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+.admin-navbar a:hover{
+
+    color:#dbeafe;
+
+}
+
+.admin-navbar button{
+
+    background:#dc2626;
+
+    color:white;
+
+    border:none;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    gap:8px;
+
+    align-items:center;
+
+}
+
+.admin-navbar button:hover{
+
+    background:#b91c1c;
+
+}
