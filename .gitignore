@@ -1,17 +1,17 @@
-# React
-**/node_modules/
-**/dist/
+# Frontend
+ngo-frontend/node_modules/
+ngo-frontend/dist/
 
-# Spring Boot
-**/target/
+# Backend
+ngo-project/target/
 
 # IDE
 .vscode/
 .idea/
+**/.vscode/
 
 # Logs
 *.log
 
-# OS
-.DS_Store
-Thumbs.db
+# Environment
+.env
