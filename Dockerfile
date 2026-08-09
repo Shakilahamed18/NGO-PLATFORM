@@ -2,7 +2,7 @@ FROM eclipse-temurin:21
 
 WORKDIR /app
 
-COPY NGO-PLATFORM/ngo-project/target/ngo-project-1.0.0.jar app.jar
+COPY NGO-PLATFORM/ngo-project/target/*.jar app.jar
 
 EXPOSE 8080
 
