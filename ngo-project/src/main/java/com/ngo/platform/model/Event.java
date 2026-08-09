@@ -23,7 +23,6 @@ public class Event {
     private String description;
 
     @NotNull(message = "Event date is required")
-    @Future
     @Column(nullable = false)
     private LocalDateTime date;
 
