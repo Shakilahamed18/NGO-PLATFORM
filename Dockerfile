@@ -2,7 +2,7 @@ FROM eclipse-temurin:21
 
 WORKDIR /app
 
-COPY target/*.jar app.jar
+COPY ngo-project/target/*.jar app.jar
 
 EXPOSE 10000
 
