@@ -2,8 +2,8 @@ FROM eclipse-temurin:21
 
 WORKDIR /app
 
-COPY ./ngo-project/target/*.jar app.jar
+COPY target/*.jar app.jar
 
-EXPOSE 10000
+EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
