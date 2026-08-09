@@ -1,8 +1,17 @@
-FROM eclipse-temurin:21
+FROM maven:3.9-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
-COPY NGO-PLATFORM/ngo-project/target/*.jar app.jar
+COPY ngo-project/pom.xml .
+COPY ngo-project/src ./src
+
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:21-jre
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
