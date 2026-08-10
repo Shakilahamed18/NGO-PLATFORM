@@ -1,93 +1,159 @@
-.navbar{
+.navbar {
+    height: 70px;
+    background: white;
 
-    height:70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    background:white;
+    padding: 0 50px;
 
-    display:flex;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:0 50px;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
-
-    position:sticky;
-
-    top:0;
-
-    z-index:100;
-
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.navbar h2{
-
-    color:#2563eb;
-
-    font-size:28px;
-
+.navbar h2 {
+    color: #2563eb;
+    font-size: 28px;
+    margin: 0;
 }
 
-.navbar div{
+/* Navigation links */
 
-    display:flex;
-
-    align-items:center;
-
-    gap:30px;
-
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
-.navbar a{
-
-    text-decoration:none;
-
-    color:#444;
-
-    font-weight:600;
-
-    transition:.3s;
-
+.nav-links a {
+    text-decoration: none;
+    color: #444;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-.navbar a:hover{
-
-    color:#2563eb;
-
+.nav-links a:hover {
+    color: #2563eb;
 }
 
-.navbar button{
+/* Logout */
 
-    background:#dc2626;
+.nav-links button {
+    background: #dc2626;
+    color: white;
 
-    color:white;
+    border: none;
 
-    border:none;
+    padding: 10px 20px;
 
-    padding:10px 20px;
+    border-radius: 8px;
 
-    border-radius:8px;
+    cursor: pointer;
 
-    cursor:pointer;
+    transition: 0.3s;
 
-    transition:.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
+    font-weight: 600;
 }
 
-.navbar button:hover{
-
-    background:#b91c1c;
-
+.nav-links button:hover {
+    background: #b91c1c;
 }
 
-.navbar button{
+/* Hamburger button */
 
-    display:flex;
+.menu-toggle {
+    display: none;
 
-    align-items:center;
+    background: transparent;
+    border: none;
 
-    gap:8px;
+    font-size: 24px;
 
+    color: #2563eb;
+
+    cursor: pointer;
+}
+
+
+/* ========================= */
+/* MOBILE RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        height: 65px;
+        padding: 0 20px;
+    }
+
+    .navbar h2 {
+        font-size: 23px;
+    }
+
+    /* Hamburger */
+
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Mobile menu */
+
+    .nav-links {
+        position: absolute;
+
+        top: 65px;
+        left: 0;
+
+        width: 100%;
+
+        background: white;
+
+        display: none;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 0;
+
+        padding: 10px 0;
+
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Show menu */
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 15px 25px;
+
+        width: 100%;
+
+        box-sizing: border-box;
+    }
+
+    .nav-links a:hover {
+        background: #f3f4f6;
+    }
+
+    /* Logout */
+
+    .nav-links button {
+        margin: 10px 20px;
+
+        justify-content: center;
+
+        padding: 12px;
+    }
 }

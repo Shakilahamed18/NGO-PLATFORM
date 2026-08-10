@@ -1,14 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
+import { useState } from "react";
 import "./UserNavbar.css";
 
 function UserNavbar() {
 
     const navigate = useNavigate();
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const logout = () => {
         localStorage.clear();
         navigate("/");
+    };
+
+    const closeMenu = () => {
+        setMenuOpen(false);
     };
 
     return (
@@ -16,11 +22,20 @@ function UserNavbar() {
 
             <h2>VolunteerHub</h2>
 
-            <div>
+            {/* Desktop / Mobile Menu */}
+            <div className={`nav-links ${menuOpen ? "active" : ""}`}>
 
-                <Link to="/dashboard">Dashboard</Link>
-                <Link to="/events">Events</Link>
-                <Link to="/applications">Applications</Link>
+                <Link to="/dashboard" onClick={closeMenu}>
+                    Dashboard
+                </Link>
+
+                <Link to="/events" onClick={closeMenu}>
+                    Events
+                </Link>
+
+                <Link to="/applications" onClick={closeMenu}>
+                    Applications
+                </Link>
 
                 <button onClick={logout}>
                     <FaSignOutAlt />
@@ -28,6 +43,14 @@ function UserNavbar() {
                 </button>
 
             </div>
+
+            {/* Mobile Hamburger */}
+            <button
+                className="menu-toggle"
+                onClick={() => setMenuOpen(!menuOpen)}
+            >
+                {menuOpen ? <FaTimes /> : <FaBars />}
+            </button>
 
         </nav>
     );

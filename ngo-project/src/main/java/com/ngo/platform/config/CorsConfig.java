@@ -13,25 +13,25 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class CorsConfig {
 
-    @Bean
-    public CorsFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
+        @Bean
+        public CorsFilter corsFilter() {
+                CorsConfiguration config = new CorsConfiguration();
 
-        // Allow requests from any origin (frontend file, browser, Postman)
-        config.addAllowedOriginPattern("*");
+                // Allow requests from any origin (frontend file, browser, Postman)
+                config.addAllowedOriginPattern("*");
 
-        // Allow all HTTP methods
-        config.addAllowedMethod("*");
+                // Allow all HTTP methods
+                config.addAllowedMethod("*");
 
-        // Allow all headers including Authorization (JWT)
-        config.addAllowedHeader("*");
+                // Allow all headers including Authorization (JWT)
+                config.addAllowedHeader("*");
 
-        // Allow sending Authorization header
-        config.setAllowCredentials(false);
+                // Allow sending Authorization header
+                config.setAllowCredentials(false);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/api/**", config);
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/api/**", config);
 
-        return new CorsFilter(source);
-    }
+                return new CorsFilter(source);
+        }
 }

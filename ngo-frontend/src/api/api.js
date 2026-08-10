@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://star-perspective-privilege-variables.trycloudflare.com/api",
+  // baseURL: "https://star-perspective-privilege-variables.trycloudflare.com/api",
+  baseURL: "http://localhost:8080/api",
   headers: {
     "Content-Type": "application/json",
   },
