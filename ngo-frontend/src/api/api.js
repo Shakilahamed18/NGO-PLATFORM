@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://phil-res-balance-clean.trycloudflare.com/api",
+  baseURL: "http://13.233.247.229:8080/api",
   headers: {
     "Content-Type": "application/json",
   },
