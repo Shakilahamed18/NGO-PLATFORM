@@ -4,6 +4,7 @@ import com.ngo.platform.dto.UserResponse;
 import com.ngo.platform.model.User;
 import com.ngo.platform.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import com.ngo.platform.model.Role;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,11 +32,23 @@ public class UserService {
         return userRepository
                 .findByNameContainingIgnoreCaseOrEmailContainingIgnoreCase(
                         keyword,
-                        keyword
-                )
+                        keyword)
                 .stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
+
+    }
+
+    public UserResponse makeAdmin(Long id) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setRole(Role.ADMIN);
+
+        User updatedUser = userRepository.save(user);
+
+        return mapToResponse(updatedUser);
 
     }
 
@@ -45,8 +58,7 @@ public class UserService {
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
-                user.getRole().name()
-        );
+                user.getRole().name());
 
     }
 

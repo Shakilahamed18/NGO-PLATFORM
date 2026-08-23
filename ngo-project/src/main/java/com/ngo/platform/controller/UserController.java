@@ -21,19 +21,25 @@ public class UserController {
     public ResponseEntity<List<UserResponse>> getAllUsers() {
 
         return ResponseEntity.ok(
-                userService.getAllUsers()
-        );
+                userService.getAllUsers());
 
     }
 
     @GetMapping("/search")
     public ResponseEntity<List<UserResponse>> searchUsers(
-            @RequestParam String keyword
-    ) {
+            @RequestParam String keyword) {
 
         return ResponseEntity.ok(
-                userService.searchUsers(keyword)
-        );
+                userService.searchUsers(keyword));
+
+    }
+
+    @PutMapping("/{id}/make-admin")
+    public ResponseEntity<UserResponse> makeAdmin(
+            @PathVariable Long id) {
+
+        return ResponseEntity.ok(
+                userService.makeAdmin(id));
 
     }
 

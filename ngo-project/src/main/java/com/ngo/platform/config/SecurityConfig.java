@@ -74,6 +74,9 @@ public class SecurityConfig {
                                                 // Attendance
                                                 .requestMatchers("/api/attendance/**").permitAll()
 
+                                                // User management - ADMIN only
+                                                .requestMatchers("/api/users/**").hasRole("ADMIN")
+
                                                 // Profile
                                                 .requestMatchers("/api/profile/**").authenticated()
 

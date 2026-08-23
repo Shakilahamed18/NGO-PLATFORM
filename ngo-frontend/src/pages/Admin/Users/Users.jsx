@@ -59,6 +59,20 @@ function Users() {
 
     };
 
+    const makeAdmin = async (userId) => {
+        try {
+            await api.put(`/users/${userId}/make-admin`);
+
+            toast.success("User is now an admin!");
+
+            loadUsers();
+
+        } catch (err) {
+            console.error(err);
+            toast.error("Unable to make user an admin.");
+        }
+    };
+
     return (
 
         <AdminLayout>
@@ -142,6 +156,7 @@ function Users() {
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
+                                <th>Action</th>
 
                             </tr>
 
@@ -167,6 +182,21 @@ function Users() {
                                             {user.role}
                                         </span>
 
+                                    </td>
+
+                                    <td>
+                                        {user.role === "USER" ? (
+                                            <button
+                                                className="make-admin-btn"
+                                                onClick={() => makeAdmin(user.id)}
+                                            >
+                                                Make Admin
+                                            </button>
+                                        ) : (
+                                            <span className="already-admin">
+                                                Already Admin
+                                            </span>
+                                        )}
                                     </td>
 
                                 </tr>
