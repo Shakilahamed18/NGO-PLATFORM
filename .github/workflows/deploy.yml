@@ -22,6 +22,16 @@ jobs:
             git reset --hard origin/main
 
             cd ngo-project
+
+            export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
+            export PATH=$JAVA_HOME/bin:$PATH
+
+            echo "JAVA VERSION:"
+            java -version
+
+            echo "MAVEN VERSION:"
+            mvn -version
+
             mvn clean package -DskipTests
 
             pkill -f 'ngo-project.*\.jar' || true
@@ -30,6 +40,3 @@ jobs:
             cd ../ngo-frontend
             npm install
             npm run build
-
-
-            
