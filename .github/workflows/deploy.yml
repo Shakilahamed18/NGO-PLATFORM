@@ -34,7 +34,8 @@ jobs:
 
             mvn clean package -DskipTests
 
-            pkill -f 'ngo-project.*\.jar' || true
+            pkill -f 'java.*ngo-project-1.0.0.jar' || true
+            sleep 3
             nohup java -jar target/ngo-project-1.0.0.jar > /home/ec2-user/app.log 2>&1 &
 
             cd ../ngo-frontend
