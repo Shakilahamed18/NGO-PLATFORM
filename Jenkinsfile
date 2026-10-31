@@ -56,7 +56,14 @@ environment {
         stage('Verify Deployment') {
     steps {
         echo 'Checking NGO application containers'
+
         bat 'docker compose -p ngo-platform ps'
+
+        echo 'Checking frontend health'
+        bat 'curl.exe -f http://localhost:3000/'
+
+        echo 'Checking backend health'
+        bat 'curl.exe -f http://localhost:8082/swagger-ui/index.html'
     }
 }
     }
