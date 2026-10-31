@@ -1,7 +1,14 @@
 
 pipeline {
     agent any
+environment {
+    MYSQLDATABASE = 'ngo_db'
+    MYSQLUSER = 'ngo_user'
 
+    MYSQLPASSWORD = credentials('ngo-mysql-app-password')
+    MYSQL_ROOT_PASSWORD = credentials('ngo-mysql-root-password')
+    JWT_SECRET = credentials('ngo-jwt-secret')
+}
     stages {
 
         stage('Checkout') {
