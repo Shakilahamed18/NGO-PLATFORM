@@ -1,3 +1,27 @@
+# # Frontend
+# ngo-frontend/node_modules/
+# ngo-frontend/dist/
+
+# # Backend
+# ngo-project/target/
+
+# # IDE
+# .vscode/
+# .idea/
+# **/.vscode/
+
+# # Logs
+# *.log
+
+# # Environment
+# .env
+
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
 # Frontend
 ngo-frontend/node_modules/
 ngo-frontend/dist/
@@ -5,13 +29,17 @@ ngo-frontend/dist/
 # Backend
 ngo-project/target/
 
+# Docker
+*.log
+
 # IDE
 .vscode/
 .idea/
 **/.vscode/
 
-# Logs
-*.log
+# OS
+.DS_Store
+Thumbs.db
 
-# Environment
-.env
+# Local database backups
+*_backup.sql

@@ -1,0 +1,85 @@
+
+services:
+
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: ngo-mysql
+    restart: unless-stopped
+
+    environment:
+      MYSQL_DATABASE: ${MYSQLDATABASE:-ngo_platform}
+      MYSQL_USER: ${MYSQLUSER:-ngo_user}
+      MYSQL_PASSWORD: ${MYSQLPASSWORD:?Set MYSQLPASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+
+    volumes:
+      - ngo_mysql_data:/var/lib/mysql
+
+    networks:
+      - ngo-network
+
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p$${MYSQL_ROOT_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+
+  # Spring Boot Backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: ngo-backend
+    restart: unless-stopped
+
+    environment:
+      SERVER_PORT: 8080
+      DB_URL: jdbc:mysql://mysql:3306/${MYSQLDATABASE:-ngo_platform}
+      DB_USERNAME: ${MYSQLUSER:-ngo_user}
+      DB_PASSWORD: ${MYSQLPASSWORD}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
+      MAIL_USERNAME: ${MAIL_USERNAME:-}
+      MAIL_PASSWORD: ${MAIL_PASSWORD:-}
+
+    ports:
+      - "8082:8080"
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    networks:
+      - ngo-network
+
+
+  # React Frontend with Nginx
+  frontend:
+    build:
+      context: ./ngo-frontend
+      dockerfile: Dockerfile
+
+    container_name: ngo-frontend
+    restart: unless-stopped
+
+    ports:
+      - "3000:80"
+
+    depends_on:
+      - backend
+
+    networks:
+      - ngo-network
+
+
+volumes:
+  ngo_mysql_data:
+
+
+networks:
+  ngo-network:
+    driver: bridge
