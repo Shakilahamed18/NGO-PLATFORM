@@ -31,33 +31,30 @@ function Users() {
 
     };
 
-    const searchUsers = async (value) => {
 
+    const searchUsers = async (value) => {
         setSearch(value);
 
-        try {
+        const keyword = value.trim();
 
-            if (value.trim() === "") {
-
-                loadUsers();
-
-                return;
-
-            }
-
-            const response = await api.get(
-                `/users/search?keyword=${value}`
-            );
-
-            setUsers(response.data);
-
-        } catch (err) {
-
-            console.log(err);
-
+        if (keyword === "") {
+            loadUsers();
+            return;
         }
 
+        try {
+            const response = await api.get("/users/search", {
+                params: {
+                    keyword: keyword
+                }
+            });
+
+            setUsers(response.data);
+        } catch (err) {
+            console.error("Error searching users:", err);
+        }
     };
+
 
     const makeAdmin = async (userId) => {
         try {
