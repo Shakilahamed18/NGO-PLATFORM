@@ -33,11 +33,11 @@ environment {
         }
 
         stage('Deploy Application') {
-            steps {
-                echo 'Deploying NGO application'
-                bat 'docker compose up -d backend frontend'
-            }
-        }
+    steps {
+        echo 'Docker images built successfully.'
+        echo 'Deployment will be configured separately.'
+    }
+}
 
         stage('Verify Deployment') {
             steps {
