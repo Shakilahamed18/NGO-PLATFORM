@@ -40,25 +40,25 @@ environment {
 }
 
         stage('Build Docker Images') {
-            steps {
-                echo 'Building NGO frontend and backend images'
-                bat 'docker compose build backend frontend'
-            }
-        }
+    steps {
+        echo 'Building NGO application Docker images'
+        bat 'docker compose -p ngo-platform build backend frontend'
+    }
+}
 
         stage('Deploy Application') {
     steps {
-        echo 'Docker images built successfully.'
-        echo 'Deployment will be configured separately.'
+        echo 'Deploying updated NGO application'
+        bat 'docker compose -p ngo-platform up -d --no-deps backend frontend'
     }
 }
 
         stage('Verify Deployment') {
-            steps {
-                echo 'Checking Docker containers'
-                bat 'docker compose ps'
-            }
-        }
+    steps {
+        echo 'Checking NGO application containers'
+        bat 'docker compose -p ngo-platform ps'
+    }
+}
     }
 
     post {
