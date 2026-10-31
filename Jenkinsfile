@@ -25,10 +25,17 @@ environment {
             }
         }
 
-        stage('Run Backend Tests') {
+    stage('Run Backend Tests') {
     steps {
         echo 'Running Spring Boot backend tests using H2'
-        bat 'docker run --rm -v "%CD%\\ngo-project:/app" -w /app maven:3.9-eclipse-temurin-21 mvn -B -Dproject.build.directory=/tmp/ngo-target test'
+
+        bat '''
+        docker run --rm ^
+          -v "%CD%\\ngo-project:/source:ro" ^
+          -w /tmp ^
+          maven:3.9-eclipse-temurin-21 ^
+          sh -c "mkdir -p /tmp/ngo-project && cp /source/pom.xml /tmp/ngo-project/ && cp -r /source/src /tmp/ngo-project/ && cd /tmp/ngo-project && mvn -B test"
+        '''
     }
 }
 
