@@ -5,6 +5,7 @@ pipeline {
     environment {
         MYSQLDATABASE = 'ngo_db'
         MYSQLUSER = 'ngo_user'
+        DOCKER_HOST = 'npipe:////./pipe/dockerDesktopLinuxEngine'
 
         MYSQLPASSWORD = credentials('ngo-mysql-app-password')
         MYSQL_ROOT_PASSWORD = credentials('ngo-mysql-root-password')
@@ -26,6 +27,13 @@ pipeline {
                 bat 'docker compose config -q'
             }
         }
+
+        stage('Verify Docker Engine Connection') {
+    steps {
+        echo 'Checking Docker Engine connection from Jenkins'
+        bat 'docker info --format "{{.ServerVersion}}"'
+    }
+}
 
         stage('Run Backend Tests') {
             steps {
