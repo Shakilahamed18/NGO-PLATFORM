@@ -44,7 +44,8 @@ public class SecurityConfig {
                                 .csrf(AbstractHttpConfigurer::disable)
 
                                 .authorizeHttpRequests(auth -> auth
-
+                                                // Actuator health check
+.requestMatchers("/actuator/health", "/actuator/health/**").permitAll()
                                                 // Swagger
                                                 .requestMatchers(
                                                                 "/swagger-ui/**",
@@ -98,9 +99,9 @@ public class SecurityConfig {
         @Bean
         public AuthenticationProvider authenticationProvider() {
 
-                DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+                DaoAuthenticationProvider provider =
+                                   new DaoAuthenticationProvider(userDetailsService);
 
-                provider.setUserDetailsService(userDetailsService);
                 provider.setPasswordEncoder(passwordEncoder());
 
                 return provider;

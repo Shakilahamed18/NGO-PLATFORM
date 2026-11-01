@@ -1,4 +1,3 @@
-
 # Stage 1: Build React application
 FROM node:22-alpine AS build
 
@@ -19,6 +18,9 @@ RUN npm run build
 
 # Stage 2: Serve application using Nginx
 FROM nginx:alpine
+
+# Upgrade Alpine packages to patched versions
+RUN apk upgrade --no-cache
 
 # Remove default Nginx configuration
 RUN rm /etc/nginx/conf.d/default.conf

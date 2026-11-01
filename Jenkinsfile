@@ -48,6 +48,30 @@ pipeline {
             }
         }
 
+        stage('Trivy Security Scan') {
+            steps {
+                echo 'Scanning NGO backend image for vulnerabilities'
+
+                bat '''
+                "C:\\ProgramData\\Trivy\\trivy.exe" image ^
+                --scanners vuln ^
+                --severity HIGH,CRITICAL ^
+                --exit-code 1 ^
+                ngo-platform-backend:latest
+                '''
+
+                echo 'Scanning NGO frontend image for vulnerabilities'
+
+                bat '''
+                "C:\\ProgramData\\Trivy\\trivy.exe" image ^
+                --scanners vuln ^
+                --severity HIGH,CRITICAL ^
+                --exit-code 1 ^
+                ngo-platform-frontend:latest
+                '''
+            }
+        }
+
         stage('Deploy Application') {
             steps {
                 echo 'Deploying updated NGO application'
