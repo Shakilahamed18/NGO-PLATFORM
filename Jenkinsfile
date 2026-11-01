@@ -36,18 +36,123 @@ pipeline {
 }
 
         stage('Run Backend Tests') {
-            steps {
-                echo 'Running Spring Boot backend tests using H2'
+    steps {
+        echo 'Running backend tests and compiling Java classes'
 
-                bat '''
-                docker run --rm ^
-                  -v "%CD%\\ngo-project:/source:ro" ^
-                  -w /tmp ^
-                  maven:3.9-eclipse-temurin-21 ^
-                  sh -c "mkdir -p /tmp/ngo-project && cp /source/pom.xml /tmp/ngo-project/ && cp -r /source/src /tmp/ngo-project/ && cd /tmp/ngo-project && mvn -B test"
-                '''
+        bat '''
+        docker run --rm ^
+          -v "%CD%\\ngo-project:/source" ^
+          -w /source ^
+          maven:3.9-eclipse-temurin-21 ^
+          mvn -B clean verify
+        '''
+    }
+}
+
+        stage('SonarQube Analysis') {
+    steps {
+        echo 'Running SonarCloud analysis for NGO Platform'
+
+        script {
+            def scannerHome = tool 'NGO-SonarScanner'
+
+            withSonarQubeEnv('SonarCloud') {
+                bat """
+                "${scannerHome}\\bin\\sonar-scanner.bat" ^
+                -Dproject.settings=sonar-project.properties ^
+                -Dsonar.java.binaries=ngo-project/target/classes
+                """
             }
         }
+    }
+}
+
+        stage('SonarCloud Quality Gate') {
+    steps {
+        echo 'Checking SonarCloud Quality Gate status'
+
+        withCredentials([
+            string(
+                credentialsId: 'sonarqube-token',
+                variable: 'SONAR_TOKEN'
+            )
+        ]) {
+            powershell '''
+                $ErrorActionPreference = "Stop"
+
+                $reportFile = ".scannerwork/report-task.txt"
+
+                if (!(Test-Path $reportFile)) {
+                    throw "SonarCloud report-task.txt not found"
+                }
+
+                $properties = Get-Content $reportFile |
+                    Where-Object { $_ -match "=" } |
+                    ConvertFrom-StringData
+
+                $ceTaskUrl = $properties["ceTaskUrl"]
+
+                if (!$ceTaskUrl) {
+                    throw "SonarCloud Compute Engine task URL not found"
+                }
+
+                $tokenBytes = [System.Text.Encoding]::ASCII.GetBytes(
+                    $env:SONAR_TOKEN + ":"
+                )
+
+                $encodedToken = [Convert]::ToBase64String($tokenBytes)
+
+                $headers = @{
+                    Authorization = "Basic $encodedToken"
+                }
+
+                $task = $null
+
+                for ($i = 1; $i -le 60; $i++) {
+                    $taskResponse = Invoke-RestMethod `
+                        -Uri $ceTaskUrl `
+                        -Headers $headers
+
+                    $task = $taskResponse.task
+
+                    if ($task.status -eq "SUCCESS") {
+                        break
+                    }
+
+                    if ($task.status -eq "FAILED" -or
+                        $task.status -eq "CANCELED") {
+                        throw "SonarCloud analysis failed: $($task.status)"
+                    }
+
+                    Write-Host "Waiting for SonarCloud analysis..."
+                    Start-Sleep -Seconds 5
+                }
+
+                if ($task.status -ne "SUCCESS") {
+                    throw "SonarCloud analysis timed out"
+                }
+
+                $analysisId = $task.analysisId
+
+                $qualityUrl = "https://sonarcloud.io/api/qualitygates/project_status?analysisId=$analysisId"
+
+                $qualityResponse = Invoke-RestMethod `
+                    -Uri $qualityUrl `
+                    -Headers $headers
+
+                $gateStatus = $qualityResponse.projectStatus.status
+
+                Write-Host "SonarCloud Quality Gate: $gateStatus"
+
+                if ($gateStatus -ne "OK") {
+                    throw "SonarCloud Quality Gate failed: $gateStatus"
+                }
+
+                Write-Host "SonarCloud Quality Gate passed!"
+            '''
+        }
+    }
+}
 
         stage('Build Docker Images') {
             steps {
