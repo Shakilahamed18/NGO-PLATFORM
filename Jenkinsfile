@@ -66,7 +66,8 @@ pipeline {
               -w /usr/src ^
               sonarsource/sonar-scanner-cli:latest ^
               -Dproject.settings=sonar-project.properties ^
-              -Dsonar.java.binaries=ngo-project/target/classes
+              -Dsonar.java.binaries=ngo-project/target/classes ^
+              -Dsonar.working.directory=/usr/src/.scannerwork
             '''
         }
     }
