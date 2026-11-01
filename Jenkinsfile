@@ -48,24 +48,30 @@ pipeline {
         '''
     }
 }
-
         stage('SonarQube Analysis') {
     steps {
-        echo 'Running SonarCloud analysis for NGO Platform'
+        echo 'Running SonarCloud analysis using Docker'
 
-        script {
-            def scannerHome = tool 'NGO-SonarScanner'
-
-            withSonarQubeEnv('SonarCloud') {
-                bat """
-                "${scannerHome}\\bin\\sonar-scanner.bat" ^
-                -Dproject.settings=sonar-project.properties ^
-                -Dsonar.java.binaries=ngo-project/target/classes
-                """
-            }
+        withCredentials([
+            string(
+                credentialsId: 'sonarqube-token',
+                variable: 'SONAR_TOKEN'
+            )
+        ]) {
+            bat '''
+            docker run --rm ^
+              -e SONAR_HOST_URL=https://sonarcloud.io ^
+              -e SONAR_TOKEN=%SONAR_TOKEN% ^
+              -v "%CD%:/usr/src" ^
+              -w /usr/src ^
+              sonarsource/sonar-scanner-cli:latest ^
+              -Dproject.settings=sonar-project.properties ^
+              -Dsonar.java.binaries=ngo-project/target/classes
+            '''
         }
     }
 }
+
 
         stage('SonarCloud Quality Gate') {
     steps {
