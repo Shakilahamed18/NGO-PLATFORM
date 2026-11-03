@@ -93,11 +93,17 @@ pipeline {
                     throw "SonarCloud report-task.txt not found"
                 }
 
-                $properties = Get-Content $reportFile |
-                    Where-Object { $_ -match "=" } |
-                    ConvertFrom-StringData
+                $taskLine = Get-Content $reportFile |
+                   Where-Object { $_ -match '^ceTaskUrl=' } |
+                   Select-Object -First 1
 
-                $ceTaskUrl = $properties["ceTaskUrl"]
+if (!$taskLine) {
+    throw "SonarCloud Compute Engine task URL not found in report"
+}
+
+$ceTaskUrl = ($taskLine -split '=', 2)[1].Trim()
+
+Write-Host "SonarCloud task URL found successfully"
 
                 if (!$ceTaskUrl) {
                     throw "SonarCloud Compute Engine task URL not found"
