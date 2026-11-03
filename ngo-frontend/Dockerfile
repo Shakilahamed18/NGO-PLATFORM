@@ -20,7 +20,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Upgrade Alpine packages to patched versions
-RUN apk upgrade --no-cache
+RUN apk update && apk upgrade --no-cache
 
 # Remove default Nginx configuration
 RUN rm /etc/nginx/conf.d/default.conf
